@@ -16,7 +16,7 @@ let autori = {
   frankzappa:10
 }
 
-
+app.use(express.static("public"));
 
 //richieste get su http://localhost:3000/
 app.get("/", (req, res) => {
@@ -33,38 +33,15 @@ app.get("/elencofunghi",(req, res) => {
 })
 
 
-
 //richieste get su http://localhost:3000/prof
 app.get("/prof", (req, res) => {
     res.send("Ciao dal prof, a me piace la polenta col baccalà");
 })
 
-
-
-
-
-
-app.get("/rayan", function(richiesta,risposta){
-    risposta.send("tutto ok da Rayan, a me piace la trap");
-    console.log(risposta);
+app.get("/cerca/:chiave",(req, res) => {
+    const chiave = 
+    res.send("Ciao dal prof, a me piace la polenta col baccalà");
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 app.listen(porta,function(){
