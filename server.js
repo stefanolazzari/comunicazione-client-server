@@ -10,26 +10,28 @@ let funghi = {
   amanitaphalloides: -5
 }
 
-let autori = {
-  Adele: 3,
-  Toto:5,
-  frankzappa:10
-}
 
+//per puntare al file index all'apertura di http://localhost:3000/
 app.use(express.static("public"));
 
-//richieste get su http://localhost:3000/
-app.get("/", (req, res) => {
-  res.send("ok");
-})
 
 //richieste get su http://localhost:3000/saluto
 app.get("/saluto", (req, res) => {
     res.send("Ciao");
 })
 
-app.get("/elencofunghi",(req, res) => {
+app.get("/elencofunghi",function(req, res) {
     res.send(funghi);
+})
+
+app.get("/aggiungi/:nomefungo/:commest",function(req,res){
+  //solo esempio, per questo tipo di richieste è più corretto usare richieste post
+  let datiRichiesta = req.params;
+  let fungoAggiunto = datiRichiesta.nomefungo;
+  let commestibilita = datiRichiesta.commest;
+
+  funghi[fungoAggiunto] = commestibilita;
+  res.send(funghi);
 })
 
 
