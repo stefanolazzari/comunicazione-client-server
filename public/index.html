@@ -7,5 +7,13 @@
 </head>
 <body>
     <h1>CLIENT-SERVER</h1>
+    <button onclick="getElenco()">richiedi elenco</button>
+    <script>
+        async function getElenco(){
+            const dato = await fetch("/elencofunghi");
+            const datoJson = await dato.json();
+            console.log(datoJson);
+        }
+    </script>
 </body>
 </html>
