@@ -6,14 +6,25 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>CLIENT-SERVER</h1>
+    <h1>Client-Server</h1>
     <button onclick="getElenco()">richiedi elenco</button>
+
     <script>
+        //funzione nel client che invia una richiesta su localhost:3000/elencofunghi
         async function getElenco(){
             const dato = await fetch("/elencofunghi");
             const datoJson = await dato.json();
-            console.log(datoJson);
+            console.log(dato);
+            //creo un paragrafo e lo aggiungo al body
+            const elemento = document.createElement("p");
+            elemento.innerHTML = JSON.stringify(datoJson, null, 2);
+            document.body.appendChild(elemento);
         }
     </script>
 </body>
 </html>
+
+
+
+
+
