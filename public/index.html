@@ -1,30 +1,209 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="it">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dispensa: Gestione Sistemi e Comunicazione Client-Server</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>Client-Server</h1>
-    <button onclick="getElenco()">richiedi elenco</button>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Dispensa: Gestione Sistemi e Comunicazione Client-Server</h1>
+      </div>
+    </header>
 
-    <script>
-        //funzione nel client che invia una richiesta su localhost:3000/elencofunghi
-        async function getElenco(){
-            const dato = await fetch("/elencofunghi");
-            const datoJson = await dato.json();
-            console.log(dato);
-            //creo un paragrafo e lo aggiungo al body
-            const elemento = document.createElement("p");
-            elemento.innerHTML = JSON.stringify(datoJson, null, 2);
-            document.body.appendChild(elemento);
-        }
-    </script>
+
+
+    <nav>
+      <button data-target="#concetti">1. Concetti Generali</button>
+      <button data-target="#node">2. Node.js e Back-end</button>
+      <button data-target="#express">3. Express.js</button>
+      <button data-target="#client">4. Client Web</button>
+      <button data-target="#api">5. API e Servizi Esterni</button>
+      <button data-target="#doc">6. Documentazione</button>
+    </nav>
+
+    <section id="concetti" class="card">
+      <h2>1. Concetti Generali</h2>
+      <p><strong>Server</strong>: computer o programma che fornisce servizi, risorse o dati a client.</p>
+      <p><strong>Comunicazione Client-Server</strong>: il client invia richieste; il server risponde con dati o azioni.
+      </p>
+      <p><strong>Richiesta HTTP</strong>: messaggio inviato dal client per ottenere una risorsa o eseguire un'azione.
+      </p>
+      <p><strong>HTTP Status Codes</strong>:</p>
+      <ul>
+        <li><strong>2xx</strong> — Successo (es. 200 OK)</li>
+        <li><strong>3xx</strong> — Reindirizzamenti (es. 301 Moved Permanently)</li>
+        <li><strong>4xx</strong> — Errori lato client (es. 404 Not Found)</li>
+        <li><strong>5xx</strong> — Errori lato server (es. 500 Internal Server Error)</li>
+      </ul>
+      <p><strong>localhost</strong>: indica il computer locale, indirizzo IP <code>127.0.0.1</code>.</p>
+      <p><strong>Web server</strong>: software che gestisce richieste HTTP e serve contenuti web.</p>
+    </section>
+
+    <section id="node" class="card">
+      <h2>2. Node.js e Sviluppo Back-end</h2>
+      <p><strong>Node.js</strong>: runtime JavaScript lato server basato su V8 (motore di Chrome). Permette di usare JS
+        per creare server, API e script di sistema.</p>
+
+      <h3>Uso del terminale</h3>
+      <pre><code>node nomefile.js</code></pre>
+
+      <h3>console.log</h3>
+      <pre><code>console.log('Messaggio di debug');</code></pre>
+
+      <h3>Differenze: JS in Browser vs Node.js</h3>
+      <ul>
+        <li>Browser: accesso al DOM, esecuzione dentro pagina HTML, uso di &lt;script&gt;.</li>
+        <li>Node.js: accesso a filesystem, rete, processi; moduli CommonJS / ESM.</li>
+      </ul>
+
+      <h3>npm e package.json</h3>
+      <pre><code>npm init -y
+npm install express
+cat package.json</code></pre>
+
+      <h3>Avvio e Chiusura di un server (HTTP nativo)</h3>
+      <pre><code>const http = require('http');
+
+const server = http.createServer((req, res) =&gt; {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Server attivo');
+});
+
+server.listen(3000, () =&gt; console.log('Server avviato su http://localhost:3000'));
+// Per terminare: CTRL + C</code></pre>
+
+    </section>
+
+    <section id="express" class="card">
+      <h2>3. Express.js</h2>
+      <p>Express è un framework minimalista per creare server e API in Node.js con rotte, middleware e gestione
+        semplificata delle richieste.</p>
+
+      <h3>Installazione</h3>
+      <pre><code>npm install express
+# oppure
+npm i express</code></pre>
+
+      <h3>Creazione delle rotte ed esempio minimo</h3>
+      <pre><code>const express = require('express');
+const app = express();
+
+app.use(express.json()); // abilita parsing JSON per POST
+
+app.get('/', (req, res) =&gt; {
+  res.send('Home Page');
+});
+
+app.post('/invia', (req, res) =&gt; {
+  const body = req.body;
+  res.json({ received: body });
+});
+
+app.listen(3000, () =&gt; console.log('Express su http://localhost:3000'));</code></pre>
+
+      <h3>Metodi principali</h3>
+      <ul>
+        <li><code>app.get()</code> — recupero risorse</li>
+        <li><code>app.post()</code> — invio dati (creazione)</li>
+        <li><code>app.put()</code>, <code>app.delete()</code>, ecc.</li>
+      </ul>
+
+      <h3>Creazione delle rotte (route handlers)</h3>
+      <pre><code>app.get('/api/users/:id', (req, res) =&gt; {
+  const { id } = req.params;
+  res.json({ id, name: 'Mario' });
+});</code></pre>
+    </section>
+
+    <section id="client" class="card">
+      <h2>4. Client Web</h2>
+      <p><strong>Ruolo di <code>index.html</code></strong>: file principale caricato dal browser; punto d'ingresso
+        dell'app client.</p>
+
+      <h3>Uso di JavaScript nel client</h3>
+      <p>È possibile includere JS con il tag <code>&lt;script&gt;</code> inline o esterno. Differenze:</p>
+      <ul>
+        <li>Tag inline: comodo per snippet rapidi ma meno manutenibile.</li>
+        <li>Script esterno: mantiene separazione tra markup e logica.</li>
+      </ul>
+
+      <h3>fetch()</h3>
+      <pre><code>// richiesta GET
+fetch('/api/dati')
+  .then(res =&gt; {
+    if(!res.ok) throw new Error(res.status);
+    return res.json();
+  })
+  .then(data =&gt; console.log(data))
+  .catch(err =&gt; console.error(err));</code></pre>
+
+      <h3>Funzioni asincrone</h3>
+      <pre><code>async function getDati(){
+  try{
+    const res = await fetch('/api/dati');
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    console.log(json);
+  } catch(e){
+    console.error(e);
+  }
+}</code></pre>
+
+    </section>
+
+    <section id="api" class="card">
+      <h2>5. API e Servizi Esterni</h2>
+      <p><strong>Definizione di API</strong>: Application Programming Interface — interfaccia che consente a sistemi
+        diversi di comunicare e scambiare dati.</p>
+
+      <h3>Open-Meteo API (esempio)</h3>
+      <p>Open-Meteo fornisce previsioni meteo tramite chiamate HTTP. Esempio di fetch:</p>
+      <pre><code>fetch('https://api.open-meteo.com/v1/forecast?latitude=45&longitude=9&hourly=temperature_2m')
+  .then(res =&gt; res.json())
+  .then(data =&gt; console.log(data));</code></pre>
+
+      <p>Nota: verificare parametri (latitude, longitude, timezone, hourly, daily) nella documentazione ufficiale del
+        servizio.</p>
+
+    </section>
+
+    <section id="doc" class="card">
+      <h2>6. Documentazione e Buone Pratiche</h2>
+      <h3>readme.md</h3>
+      <p>File Markdown che descrive il progetto: scopo, setup, comandi utili, dipendenze e informazioni per
+        sviluppatori.</p>
+
+      <h3>Convenzioni utili</h3>
+      <ul>
+        <li>Usare <code>npm run</code> per comandi di sviluppo (es. <code>npm run start</code>,
+          <code>npm run dev</code>).</li>
+        <li>Documentare le rotte principali e gli esempi d'uso dell'API nel README.</li>
+        <li>Tenere <code>package.json</code> aggiornato e non committare <code>node_modules</code>.</li>
+      </ul>
+    </section>
+
+    <footer class="small">Se vuoi, posso generare anche un file ZIP con un progetto d'esempio o una versione Markdown
+      della dispensa.</footer>
+  </div>
+
+  <script>
+    // navigation
+    document.querySelectorAll('nav button').forEach(b => {
+      b.addEventListener('click', () => {
+        const target = document.querySelector(b.dataset.target);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+
+  </script>
 </body>
+
 </html>
-
-
-
-
-

@@ -1,0 +1,105 @@
+  :root {
+      --bg: #ffffff;
+      --card: #0b1220;
+      --muted: #9aa6b2;
+      --accent: #7dd3fc;
+      --glass: rgba(255, 255, 255, 0.03)
+  }
+
+  html,
+  body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial
+  }
+
+  body {
+     
+      padding: 28px
+  }
+
+  .container {
+      max-width: 980px;
+      margin: 0 auto
+  }
+
+  header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px
+  }
+
+  header h1 {
+      font-size: 20px;
+      margin: 0
+  }
+
+  header p {
+      margin: 0;
+      color: var(--muted)
+  }
+
+  nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 14px 0
+  }
+
+  nav button {
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer
+  }
+
+  .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      padding: 18px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.03)
+  }
+
+  h2 {
+      margin-top: 0
+  }
+
+  pre {
+      background: #021226;
+      color: #cfeefe;
+      padding: 12px;
+      border-radius: 8px;
+      overflow: auto
+  }
+
+  code {
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+  }
+
+  footer {
+      color: var(--muted);
+      margin-top: 14px;
+      font-size: 13px
+  }
+
+  .top-controls {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px
+  }
+
+  .btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--accent);
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer
+  }
+
+  .small {
+      font-size: 13px;
+      color: var(--muted)
+  }
